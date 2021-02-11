@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 
+
 {% block title %}Hello Henry{% endblock %}
 
 {% block body %}
@@ -8,13 +9,37 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello Henry ! ✅</h1>
+    {% for blog in blogs %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/Symfony_projects/Project1/Robben1/src/Controller/DefaultController.php'|file_link(0) }}">src/Controller/DefaultController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/Symfony_projects/Project1/Robben1/templates/default/index.html.twig'|file_link(0) }}">templates/default/index.html.twig</a></code></li>
-    </ul>
-</div>
+        <div class="flexyboxy">
+            <div class="col-md-4">
+                <div class="card mb-4 box-shadow">
+                    <div class="card-body">
+                        <p class="card-text">{{ blog.tekst }}</p>
+                        <p class="card-text"> id = {{ blog.id }}</p>
+                        <p class="card-text"> Published = {{ blog.Published ? 'Yes' : 'No' }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-outline-secondary"><a
+                                            href="{{ path('blog_show', {'id': blog.id}) }}">show</a></button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary"><a
+                                            href="{{ path('blog_edit', {'id': blog.id}) }}">edit</a></button>
+                            </div>
+                            <p class="card-text"> Date
+                                = {{ blog.datetimez ? blog.datetimez|date('Y-m-d H:i:s T') : '' }}</p>
+                            <small class="text-muted">9 mins</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <tr>
+            <td colspan="5">no records found</td>
+        </tr>
+
+
+    {% endfor %}
+<button type="button" class="btn btn-sm btn-outline-secondary"><a href="{{ path('blog_new') }}">Create new</a>
+
 {% endblock %}
